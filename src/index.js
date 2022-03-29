@@ -1,7 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './index.css';
+import { createMuiTheme as createThemeV4 } from "@material-ui/core/styles";
+import {
+  createTheme as createThemeV5,
+  ThemeProvider as ThemeProviderV5
+} from "@mui/material/styles";
+import {
+  createGenerateClassName,
+  ThemeProvider as ThemeProviderV4,
+  StylesProvider
+} from "@material-ui/core/styles";
+
+const generateClassName = createGenerateClassName({
+  disableGlobal: true,
+  seed: "mui-jss"
+});
+
+const themeV4 = createThemeV4({
+  palette: {
+    primary: {
+      main: "#2196f3"
+    },
+    secondary: {
+      main: "#f50057"
+    }
+  },
+  shape: {
+    borderRadius: 8
+  }
+});
+
+const themeV5 = createThemeV5({
+  palette: {
+    primary: {
+      main: themeV4.palette.primary.main
+    },
+    secondary: {
+      main: themeV4.palette.secondary.main
+    }
+  },
+  shape: { ...themeV4.shape }
+});
 
 function Square(props) {
   let style = "square";
@@ -165,6 +208,8 @@ class Game extends React.Component {
         </div>
         <div>
           <Button variant="contained" color="primary" onClick={() => { alert('ouch!')}}>Hello World</Button>
+          <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
+          <Button variant="contained" startIcon={<LogoutIcon />}>Logout</Button>
         </div>
       </div>
     );
@@ -174,7 +219,13 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <StylesProvider generateClassName={generateClassName}>
+    <ThemeProviderV4 theme={themeV4}>
+      <ThemeProviderV5 theme={themeV5}>
+        <Game />
+      </ThemeProviderV5>
+    </ThemeProviderV4>
+  </StylesProvider>,
   document.getElementById('root')
 );
 
