@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Box from '@mui/material/Box';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
 import './index.css';
 import { createMuiTheme as createThemeV4 } from "@material-ui/core/styles";
 import {
@@ -19,6 +27,12 @@ const generateClassName = createGenerateClassName({
   disableGlobal: true,
   seed: "mui-jss"
 });
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
 
 const themeV4 = createThemeV4({
   palette: {
@@ -211,6 +225,21 @@ class Game extends React.Component {
           <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
           <Button variant="contained" startIcon={<LogoutIcon />}>Logout</Button>
         </div>
+        <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+          <SpeedDial
+            ariaLabel="SpeedDial basic example"
+            sx={{ position: 'absolute', bottom: 16, right: 16 }}
+            icon={<SpeedDialIcon />}
+          >
+            {actions.map((action) => (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.name}
+              />
+            ))}
+          </SpeedDial>
+        </Box>
       </div>
     );
   }
