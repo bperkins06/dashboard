@@ -22,6 +22,7 @@ import {
   ThemeProvider as ThemeProviderV4,
   StylesProvider
 } from "@material-ui/core/styles";
+import Joyride from 'react-joyride';
 
 const generateClassName = createGenerateClassName({
   disableGlobal: true,
@@ -124,6 +125,17 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
       orderAscending: true,
+      run: false,
+      steps: [
+        {
+          target: '.game-board',
+          content: 'This is my awesome feature!',
+        },
+        {
+          target: '.game-info',
+          content: 'This another awesome feature!',
+        },
+      ]
     };
   }
 
@@ -176,6 +188,8 @@ class Game extends React.Component {
     const draw = current.squares.indexOf(null) == -1;
     const order = this.state.orderAscending ? history : history.reverse();
     const sortButton = this.state.orderAscending ? "Sort Descending":"Sort Ascending"
+    const steps = this.state.steps;
+    const run = this.state.run;
     const moves = order.map((step, move) => {
       const linkMove = this.state.orderAscending ? move : (order.length-move-1)
       let location = move ? ' Location: ('+order[move].location+')':'';
@@ -195,6 +209,15 @@ class Game extends React.Component {
         </li>
       );
     });
+
+    const handleClickStart = (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+
+      this.setState({
+        run: true,
+      });
+    };
+
     const orderedList = this.renderList(moves);
     let status;
     if (draw) {
@@ -206,8 +229,13 @@ class Game extends React.Component {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
     }
+
     return (
       <div className="game">
+        <Joyride
+          run={run}
+          steps={steps}
+        />
         <div className="game-board">
           <Board
             squares={current.squares}
@@ -224,6 +252,7 @@ class Game extends React.Component {
           <Button variant="contained" color="primary" onClick={() => { alert('ouch!')}}>Hello World</Button>
           <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
           <Button variant="contained" startIcon={<LogoutIcon />}>Logout</Button>
+          <Button variant="contained" onClick={handleClickStart}>Start</Button>
         </div>
         <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
           <SpeedDial
