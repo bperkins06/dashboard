@@ -63,7 +63,7 @@ const themeV5 = createThemeV5({
 function Square(props) {
   let style = "square";
   if (props.winner) {
-    style += " winner"; 
+    style += " winner";
   }
   return (
     <button className={style} onClick={props.onClick}>
@@ -125,7 +125,7 @@ class Game extends React.Component {
       xIsNext: true,
       orderAscending: true,
     };
-  }  
+  }
 
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -157,7 +157,7 @@ class Game extends React.Component {
   sortMoves() {
     console.log('Sort the moves');
     this.setState({
-      orderAscending: !this.state.orderAscending,      
+      orderAscending: !this.state.orderAscending,
     });
   }
 
@@ -165,7 +165,7 @@ class Game extends React.Component {
     if (this.state.orderAscending) {
       return (<ol>{moves}</ol>);
     } else {
-      return (<ol reversed>{moves}</ol>);  
+      return (<ol reversed>{moves}</ol>);
     }
   }
 
@@ -173,11 +173,11 @@ class Game extends React.Component {
     let history = JSON.parse(JSON.stringify(this.state.history));
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const draw = current.squares.indexOf(null) == -1; 
+    const draw = current.squares.indexOf(null) == -1;
     const order = this.state.orderAscending ? history : history.reverse();
     const sortButton = this.state.orderAscending ? "Sort Descending":"Sort Ascending"
     const moves = order.map((step, move) => {
-      const linkMove = this.state.orderAscending ? move : (order.length-move-1) 
+      const linkMove = this.state.orderAscending ? move : (order.length-move-1)
       let location = move ? ' Location: ('+order[move].location+')':'';
       let desc = move ?
         'Go to move #' + move:
@@ -187,10 +187,10 @@ class Game extends React.Component {
         desc = (move == (order.length-1)) ?
             'Go to game start':
             'Go to move #' + (order.length - move -1);
-      }  
+      }
 
       return (
-        <li key={linkMove}> 
+        <li key={linkMove}>
           <button onClick={() => this.jumpTo(linkMove)}>{desc}</button>{location}
         </li>
       );
@@ -205,7 +205,7 @@ class Game extends React.Component {
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
-    }    
+    }
     return (
       <div className="game">
         <div className="game-board">
@@ -217,7 +217,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div dangerouslySetInnerHTML={{ __html: status}}></div>
-          <div><button onClick={() => this.sortMoves()}>{sortButton}</button></div> 
+          <div><button onClick={() => this.sortMoves()}>{sortButton}</button></div>
           {orderedList}
         </div>
         <div>
