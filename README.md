@@ -1,5 +1,5 @@
 # Dashboard
-Dashboard prototype using material ui and chart.js 
+Dashboard prototype using material ui and chart.js [Live Demo](https://bperkins06.github.io/dashboard/)
 
 # Getting Started with Create React App
 
@@ -30,7 +30,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Deployment
+The following command will update the contents of the `gh-pages` branch. This branch contains the files that make up the distributable version of the React app.  
+`npm run deploy -- -m "deploy to github pages commit message"`
 
 ### `npm run eject`
 
@@ -63,10 +65,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 ### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
 ### `npm run build` fails to minify
 
